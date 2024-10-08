@@ -55,8 +55,8 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
         completions = sorted(["*"] + self.proc.curframe.f_locals.keys())
         return Mcomplete.complete_token(completions, prefix)
 
-    def run(self, args):
-        if not self.proc.curframe:
+    def run_frame(self, args, frame):
+        if not frame:
             self.errmsg("No frame selected")
             return False
 
@@ -85,7 +85,7 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
             pass
         pass
 
-        names = list(self.proc.curframe.f_locals.keys())
+        names = list(frame.f_locals.keys())
 
         if list_only:
             for name in names:
@@ -101,7 +101,7 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
                 # why... (the problem was in self.getval called by
                 # info_locals)
                 if _with_local_varname.match(name):
-                    val = self.proc.curframe.f_locals[name]
+                    val = frame.f_locals[name]
                 else:
                     val = self.proc.getval(name)
                     pass
@@ -122,7 +122,7 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
                 # info_locals)
                 if name in names:
                     if _with_local_varname.match(name):
-                        val = self.proc.curframe.f_locals[name]
+                        val = frame.f_locals[name]
                     else:
                         val = self.proc.getval(name)
                         pass
@@ -139,6 +139,27 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
         return False
 
     pass
+
+    def print_locals_in_all_frames(self, args, curframe, limit=None):
+        count = 0  # Initialize a counter to limit frames
+
+        frame = curframe
+        while frame is not None and (limit is None or count < limit):
+            # Print the function name and locals for the current frame
+            print('<RunFrameEntry>')
+            print(f"<Frame> {count} </Frame>")
+            print(f"<Function> {frame.f_code.co_name} </Function>")
+            print('<Locals>')
+            self.run_frame(args, frame)
+            print('</Locals>')
+            print('</RunFrameEntry>')
+
+            # Move to the previous frame
+            frame = frame.f_back
+            count += 1
+
+    def run(self, args, limit=5):
+        self.print_locals_in_all_frames(args, self.proc.curframe, limit)
 
 
 if __name__ == "__main__":

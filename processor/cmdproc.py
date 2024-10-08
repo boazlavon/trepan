@@ -359,6 +359,7 @@ def print_location(proc_obj):
 
         fn_name = frame.f_code.co_name
         last_i = frame.f_lasti
+        print('<SourceLocationInfo>')
         print_source_location_info(
             intf_obj.msg,
             filename,
@@ -367,28 +368,53 @@ def print_location(proc_obj):
             remapped_file=remapped_file,
             f_lasti=last_i,
         )
+        print('</SourceLocationInfo>')
+        print()
+
         if line and len(line.strip()) != 0:
             if proc_obj.event:
+                print('<SourceLine>')
                 print_source_line(
                     intf_obj.msg, lineno, line, proc_obj.event2short[proc_obj.event]
                 )
+                print('</SourceLine>')
+                print()
             pass
         if "<string>" != filename:
             break
         pass
 
+    print('<Event>')
+    print(f'{proc_obj.event.upper()} Event')
+    print('</Event>')
+    print()
+    try:
+        print("<LogLevel>")
+        proc_obj.commands["set"].run(["set", "loglevel", "debug"])
+        print("</LogLevel>")
+        print()
+        print('<InfoLocals>')
+        proc_obj.commands["info"].run(["info", "locals"])
+        print('</InfoLocals>')
+        print()
+    except Exception:
+        pass
     if proc_obj.event in ["return", "exception"]:
         val = proc_obj.event_arg
-        intf_obj.msg(f"R=> {proc_obj._saferepr(val)}")
+        print('<ReturnValue>')
+        intf_obj.msg(f"{proc_obj._saferepr(val)}")
+        print('</ReturnValue>')
+        print()
         pass
     elif (
         proc_obj.event == "call"
         and proc_obj.curframe.f_locals.get("__name__", "") != "__main__"
     ):
-        try:
-            proc_obj.commands["info"].run(["info", "locals"])
-        except Exception:
-            pass
+        pass
+        # try:
+        #     proc_obj.commands["info"].run(["info", "locals"])
+        # except Exception:
+        #     pass
     return True
 
 

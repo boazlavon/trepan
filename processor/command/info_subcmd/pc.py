@@ -56,6 +56,24 @@ class InfoPC(DebuggerSubcommand):
                 offset = max(offset, 0)
                 code = curframe.f_code
                 co_code = code.co_code
+                
+                self.msg("args: ")
+                args = [('msg', self.msg),
+                    ('msg_nocr', self.msg_nocr),
+                    ('code', co_code),
+                    ('lasti', offset),
+                    ('cur_line',line_no),
+                    ('start_line', line_no - 1),
+                    ('end_line', line_no + 1),
+                    ('varnames', code.co_varnames),
+                    ('names', code.co_names),
+                    ('constants',code.co_consts),
+                    ('cells',code.co_cellvars),
+                    ('freevars',code.co_freevars),
+                    ('linestarts',dict(findlinestarts(code))),
+                    ('end_offset', offset + 10)]
+                self.msg(args)
+                offset = max(offset, 0)
                 disassemble_bytes(
                     self.msg,
                     self.msg_nocr,
