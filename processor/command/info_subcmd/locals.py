@@ -16,6 +16,7 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import re
+import traceback
 
 from getopt import getopt, GetoptError
 
@@ -85,8 +86,12 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
             pass
         pass
 
+        # print(f"{names=}")
+        # print(f"{args=}")
+        # print(f"{frame=}")
+        print(f"{frame.f_locals}")
+        return
         names = list(frame.f_locals.keys())
-
         if list_only:
             for name in names:
                 self.msg(name)
@@ -103,7 +108,13 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
                 if _with_local_varname.match(name):
                     val = frame.f_locals[name]
                 else:
-                    val = self.proc.getval(name)
+                    err = False
+                    try:
+                        val = frame.f_locals[name]
+                    except:
+                        err = True
+                    if err:
+                        val = self.proc.getval(name)
                     pass
                 Mpp.pp(
                     val,
@@ -150,7 +161,20 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
             print(f"[[[Frame]]] {count} [[[/Frame]]]")
             print(f"[[[Function]]] {frame.f_code.co_name} [[[/Function]]]")
             print('[[[Locals]]]')
-            self.run_frame(args, frame)
+            try:
+                self.run_frame(args, frame)
+            except Exception as e:
+                print('[[[Errror]]]')
+                print('[[[ExceptionMessage]]]')
+                print(f"Exception message: {e}")
+                print('[[[/ExceptionMessage]]]')
+                print('[[[ExceptionType]]]')
+                print(f"{type(e).__name__}")
+                print('[[[/ExceptionType]]]')
+                print('[[[Traceback]]]')
+                traceback.print_exc()  # This prints the full traceback
+                print('[[[/Traceback]]]')
+                print('[[[/Errror]]]')
             print('[[[/Locals]]]')
             print('[[[/RunFrameEntry]]]')
 
