@@ -146,13 +146,13 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
         frame = curframe
         while frame is not None and (limit is None or count < limit):
             # Print the function name and locals for the current frame
-            print('<RunFrameEntry>')
-            print(f"<Frame> {count} </Frame>")
-            print(f"<Function> {frame.f_code.co_name} </Function>")
-            print('<Locals>')
+            print('[[[RunFrameEntry]]]')
+            print(f"[[[Frame]]] {count} [[[/Frame]]]")
+            print(f"[[[Function]]] {frame.f_code.co_name} [[[/Function]]]")
+            print('[[[Locals]]]')
             self.run_frame(args, frame)
-            print('</Locals>')
-            print('</RunFrameEntry>')
+            print('[[[/Locals]]]')
+            print('[[[/RunFrameEntry]]]')
 
             # Move to the previous frame
             frame = frame.f_back
