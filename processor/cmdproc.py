@@ -401,9 +401,9 @@ def print_location(proc_obj):
         pass
     if proc_obj.event in ["return", "exception"]:
         val = proc_obj.event_arg
-        print('<ReturnValue>')
+        print('[[[ReturnValue]]]')
         intf_obj.msg(f"{proc_obj._saferepr(val)}")
-        print('</ReturnValue>')
+        print('[[[/ReturnValue]]]')
         print()
         pass
     elif (
