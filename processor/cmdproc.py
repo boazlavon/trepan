@@ -373,30 +373,31 @@ def print_location(proc_obj):
 
         if line and len(line.strip()) != 0:
             if proc_obj.event:
-                print('[[[SourceLine]]]')
-                print_source_line(
-                    intf_obj.msg, lineno, line, proc_obj.event2short[proc_obj.event]
-                )
-                print('[[[/SourceLine]]]')
-                print()
+                pass
+                # print('[[[SourceLine]]]')
+                # print_source_line(
+                #     intf_obj.msg, lineno, line, proc_obj.event2short[proc_obj.event]
+                # )
+                # print('[[[/SourceLine]]]')
+                # print()
             pass
         if "<string>" != filename:
             break
         pass
 
     print('[[[Event]]]')
-    print(f'{proc_obj.event.upper()} Event')
+    print(f'{proc_obj.event.upper()}')
     print('[[[/Event]]]')
     print()
     try:
-        print("[[[LogLevel]]]")
+        #print("[[[LogLevel]]]")
         proc_obj.commands["set"].run(["set", "loglevel", "debug"])
-        print("[[[/LogLevel]]]")
-        print()
-        print('[[[InfoLocals]]]')
-        proc_obj.commands["info"].run(["info", "locals"])
-        print('[[[/InfoLocals]]]')
-        print()
+        #print("[[[/LogLevel]]]")
+        #print()
+        #print('[[[InfoLocalsFrames]]]')
+        #proc_obj.commands["info"].run(["info", "locals"])
+        #print('[[[/InfoLocalsFrames]]]')
+        #print()
     except Exception:
         pass
     if proc_obj.event in ["return", "exception"]:
