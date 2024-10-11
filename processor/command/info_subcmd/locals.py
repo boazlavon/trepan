@@ -158,7 +158,8 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
         while frame is not None and (limit is None or count < limit):
             # Print the function name and locals for the current frame
             print('[[[RunFrameEntry]]]')
-            print(f"[[[Frame]]] {count} [[[/Frame]]]")
+            print(f"[[[FrameIndex]]] {count} [[[/FrameIndex]]]")
+            print(f"[[[FrameId]]] {id(frame)} [[[/FrameId]]]")
             print(f"[[[Function]]] {frame.f_code.co_name} [[[/Function]]]")
             print('[[[Locals]]]')
             try:
