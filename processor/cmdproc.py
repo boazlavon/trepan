@@ -359,17 +359,17 @@ def print_location(proc_obj):
 
         fn_name = frame.f_code.co_name
         last_i = frame.f_lasti
-        print('[[[SourceLocationInfo]]]')
-        print_source_location_info(
-            intf_obj.msg,
-            filename,
-            lineno,
-            fn_name,
-            remapped_file=remapped_file,
-            f_lasti=last_i,
-        )
-        print('[[[/SourceLocationInfo]]]')
-        print()
+        # print('[[[SourceLocationInfo]]]')
+        # print_source_location_info(
+        #     intf_obj.msg,
+        #     filename,
+        #     lineno,
+        #     fn_name,
+        #     remapped_file=remapped_file,
+        #     f_lasti=last_i,
+        # )
+        # print('[[[/SourceLocationInfo]]]')
+        # print()
 
         if line and len(line.strip()) != 0:
             if proc_obj.event:
