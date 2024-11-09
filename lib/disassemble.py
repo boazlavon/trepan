@@ -301,7 +301,7 @@ def disassemble_bytes(
                 pass
             if (cur_line > end_line) or (end_offset and offset > end_offset):
                 break
-            msg_nocr(format_token(LineNumber, "%4d" % cur_line, highlight=highlight))
+            msg_nocr(format_token(LineNumber, "L. %4d" % cur_line, highlight=highlight))
             msg_nocr(" ")
         else:
             if start_offset and offset and start_offset <= offset:
