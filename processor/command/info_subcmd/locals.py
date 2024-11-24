@@ -164,17 +164,18 @@ class InfoLocals(Mbase_subcmd.DebuggerSubcommand):
             try:
                 self.run_frame(args, frame)
             except Exception as e:
-                print('[[[Errror]]]')
-                print('[[[ExceptionMessage]]]')
-                print(f"Exception message: {e}")
-                print('[[[/ExceptionMessage]]]')
-                print('[[[ExceptionType]]]')
-                print(f"{type(e).__name__}")
-                print('[[[/ExceptionType]]]')
-                print('[[[Traceback]]]')
-                traceback.print_exc()  # This prints the full traceback
-                print('[[[/Traceback]]]')
-                print('[[[/Errror]]]')
+                pass
+                # print('[[[Errror]]]')
+                # print('[[[ExceptionMessage]]]')
+                # print(f"Exception message: {e}")
+                # print('[[[/ExceptionMessage]]]')
+                # print('[[[ExceptionType]]]')
+                # print(f"{type(e).__name__}")
+                # print('[[[/ExceptionType]]]')
+                # print('[[[Traceback]]]')
+                # traceback.print_exc()  # This prints the full traceback
+                # print('[[[/Traceback]]]')
+                # print('[[[/Errror]]]')
             print('[[[/Locals]]]')
             print('[[[/FrameEntry]]]')
 
