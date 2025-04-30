@@ -385,10 +385,10 @@ def print_location(proc_obj):
             break
         pass
 
-    print('[[[Event]]]')
-    print(f'{proc_obj.event.upper()}')
-    print('[[[/Event]]]')
-    print()
+    # print('[[[Event]]]')
+    # sys.stderr.write(f'{proc_obj.event.upper()}: ')
+    # print('[[[/Event]]]')
+    # print()
     try:
         #print("[[[LogLevel]]]")
         proc_obj.commands["set"].run(["set", "loglevel", "debug"])
@@ -401,11 +401,13 @@ def print_location(proc_obj):
     except Exception:
         pass
     if proc_obj.event in ["return", "exception"]:
-        val = proc_obj.event_arg
-        print('[[[ReturnValue]]]')
-        intf_obj.msg(f"{proc_obj._saferepr(val)}")
-        print('[[[/ReturnValue]]]')
-        print()
+        # val = proc_obj.event_arg
+        # print('[[[ReturnValue]]]')
+        # intf_obj.msg(f"{proc_obj._saferepr(val)}")
+        # sys.stderr.write(f"{proc_obj._saferepr(val)}\n")
+        # sys.stderr.write(f"{val}\n")
+        # print('[[[/ReturnValue]]]')
+        # print()
         pass
     elif (
         proc_obj.event == "call"

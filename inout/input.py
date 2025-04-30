@@ -113,7 +113,6 @@ class DebuggerUserInput(Mbase.DebuggerInputBase):
         if use_raw:
             try:
                 inp = input(prompt)
-                # import pdb; pdb.set_trace()
                 return inp
             except ValueError:
                 raise EOFError

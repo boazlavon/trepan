@@ -19,6 +19,7 @@
     the debugged program."""
 import atexit
 import os.path as osp
+import sys
 
 from trepan.inout.input import DebuggerUserInput
 from trepan.inout.output import DebuggerUserOutput
@@ -144,6 +145,7 @@ class UserInterface(TrepanInterface):
         # This routine gets called multiple times.
         # We hard-code the close() function here.
         try:
+            sys.exit(0)
             self.msg("%s: That's all, folks..." % self.debugger_name)
         except Exception:
             pass
@@ -167,7 +169,8 @@ class UserInterface(TrepanInterface):
             self.output.write(prompt)
             self.output.flush()
             pass
-        return self.input.readline(prompt=prompt)
+        return 'step'
+        # return self.input.readline(prompt=prompt)
 
     pass
 
