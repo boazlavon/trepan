@@ -1,0 +1,21 @@
+
+difications to Trepan / TrepanXPy / X-Python
+----------------------------------------------
+
+This submodule includes changes made as part of the EG-CFG project:
+Execution-Guided Classifier-Free Guidance for Code Generation.
+
+The modifications allow the debugger to emit canonicalized execution traces —
+a structured format that captures runtime behavior such as variable values,
+function calls, and bytecode instructions.
+
+These traces are used to guide large language models during generation.
+
+Original upstream:
+- Trepan: https://github.com/rocky/trepan
+- TrepanXPy: https://pypi.org/project/trepanxpy/
+- X-Python: https://pypi.org/project/x-python/
+
+All modifications © 2025 EG-CFG Research Team, Tel Aviv University  
+License: GNU General Public License v3 (GPLv3)
+
